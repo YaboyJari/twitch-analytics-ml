@@ -21,7 +21,7 @@ const runCronJob = async() => {
         TIMEZONE,
     );
     job.start();
-}
+};
 
 const packageData = async () => {
     const streamInfo = await getStreamerInfo();
@@ -62,8 +62,8 @@ const insertUserAndStream = async (twitchInfo) => {
     } catch (err) {
         console.log(err);
     }
-}
+};
 
 module.exports = {
     runCronJob,
-}
+};

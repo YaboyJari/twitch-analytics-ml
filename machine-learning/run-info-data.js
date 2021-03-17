@@ -4,7 +4,7 @@ const {
 const {
     getStreamInfo,
 } = require('../twitch-calls/get-stream-info');
-const config = require("../config");
+const config = require("../twitch-calls/config");
 
 const STREAMER = config.streamer;
 

@@ -1,5 +1,5 @@
 const request = require("request");
-const config = require("../config");
+const config = require("./config");
 
 const getStreamInfo = async (username, bearerToken) => {
   return new Promise((resolve, reject) => {
