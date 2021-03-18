@@ -1,11 +1,11 @@
 const request = require("request");
 const config = require("./config");
 
-const getStreamInfo = async (username, bearerToken) => {
+const getDutchStreams = async (bearerToken) => {
   return new Promise((resolve, reject) => {
     request({
         method: "GET",
-        uri: `https://api.twitch.tv/helix/streams?user_login=${username}`,
+        uri: `https://api.twitch.tv/helix/streams?language=nl&first=100`,
         headers: {
             'Client-Id': config.clientID,
             'Authorization': `Bearer ${bearerToken}`,
@@ -21,5 +21,5 @@ const getStreamInfo = async (username, bearerToken) => {
 };
 
 module.exports = {
-  getStreamInfo,
+    getDutchStreams,
 };

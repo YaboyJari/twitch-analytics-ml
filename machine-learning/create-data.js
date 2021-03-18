@@ -6,6 +6,7 @@ const {
     parseToStreamSchema,
     parseToUserSchema,
 } = require('./parse-data');
+
 const Stream = require('../mongoose/stream.model');
 const User = require('../mongoose/user.model');
 
@@ -26,7 +27,9 @@ const runCronJob = async() => {
 const packageData = async () => {
     const streamInfo = await getStreamerInfo();
     if (streamInfo) {
-        insertUserAndStream(streamInfo);
+        streamInfo.forEach(streamer => {
+            insertUserAndStream(streamer);
+        });
     };
 };
 
@@ -53,7 +56,9 @@ const insertUserAndStream = async (twitchInfo) => {
             console.log('Stream not found, inserting...');
             const mappedStreamData = parseToStreamSchema(twitchInfo);
             stream = new Stream(mappedStreamData);
-            await stream.save();
+            if (stream.gameId && stream.gameName) {
+                await stream.save();
+            }
         } else {
             console.log('Stream found, adding view count...');
             stream.viewerCount.push(twitchInfo.viewer_count);

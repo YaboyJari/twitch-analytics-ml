@@ -6,7 +6,7 @@ const {
 let myModel
 const learningRate = 0.005;
 const epochs = 50;
-const batchSize = 10000;
+const batchSize = 10;
 const validationSplit = 0.2;
 
 const createModel = (learningRate) => {

@@ -2,17 +2,14 @@ const {
     getToken,
 } = require('../twitch-calls/token-credentials');
 const {
-    getStreamInfo,
-} = require('../twitch-calls/get-stream-info');
-const config = require("../twitch-calls/config");
-
-const STREAMER = config.streamer;
+    getDutchStreams,
+} = require('../twitch-calls/get-dutch-streamers');
 
 const getStreamerInfo = async () => {
-    token = await getToken();
+    let token = await getToken();
     token = JSON.parse(token).access_token;
-    const streamInfo = JSON.parse(await getStreamInfo(STREAMER, token)).data[0];
-    return streamInfo;
+    const test = await getDutchStreams(token);
+    return JSON.parse(test).data;
 };
 
 module.exports = {
