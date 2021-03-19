@@ -2,18 +2,18 @@ const tf = require('@tensorflow/tfjs');
 const {
     getData,
 } = require('./normalize-data');
+const sizeEnum = require('../enums/size');
 
-let myModel
 const learningRate = 0.005;
 const epochs = 50;
 const batchSize = 10;
 const validationSplit = 0.2;
 
-const createModel = (learningRate) => {
+const createModel = (learningRate, shape) => {
     const model = tf.sequential();
     model.add(tf.layers.dense({
         units: 32,
-        inputShape: [16],
+        inputShape: [shape],
         useBias: true,
         activation: 'relu',
     }));
@@ -28,7 +28,7 @@ const createModel = (learningRate) => {
         optimizer: tf.train.adam(learningRate),
         loss: tf.losses.meanSquaredError,
         metrics: ['accuracy', 'mse'],
-      });
+    });
 
     return model;
 };
@@ -43,17 +43,15 @@ const trainModel = async (model, train_features, train_label, epochs, batchSize 
 };
 
 exports.startTraining = async () => {
-    let model;
-    try {
-        model = await tf.loadLayersModel('file://model/model.json');
-    } catch (err) {
-        if (!model) {
-            let data = await getData();
-            myModel = createModel(learningRate);
-            await trainModel(myModel, data.x_features, data.y_labels,
-                epochs, batchSize, validationSplit);
-            // await myModel.save('file://model');
-            console.log('Model trained!');
-        }
+    let data = await getData();
+    console.log(data.length)
+    for(x = 0; x < data.length; x++) {
+        const shape = data[x].x_features.shape[1];
+        const myModel = createModel(learningRate, shape);
+        await trainModel(myModel, data[x].x_features, data[x].y_labels,
+            epochs, batchSize, validationSplit);
+        await myModel.save('file://models/model-' + sizeEnum[x]);
+        console.log(sizeEnum[x] + ' model trained!');
     };
+    console.log('Models trained!');
 };

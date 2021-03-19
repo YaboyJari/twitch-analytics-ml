@@ -19,5 +19,5 @@ const PORT = 3000;
     await app.listen(PORT);
     console.log(`Server started. Listening on port ${PORT}`);
     await runCronJob();
-    // await startTraining();
+    await startTraining();
 })();
