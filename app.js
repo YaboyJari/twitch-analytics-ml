@@ -6,10 +6,7 @@ const {
 const {
     runCronJob,
 } = require('./machine-learning/create-data');
-const {
-    getData,
-} = require('./machine-learning/normalize-data');
-const { startTraining } = require('./machine-learning/model');
+const { startTraining, runTestData } = require('./machine-learning/model');
 const PORT = 3000;
 
 (async () => {
@@ -20,4 +17,5 @@ const PORT = 3000;
     console.log(`Server started. Listening on port ${PORT}`);
     await runCronJob();
     await startTraining();
+    await runTestData();
 })();
