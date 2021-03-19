@@ -3,18 +3,9 @@
 const mongoose = require('mongoose');
 
 const vocDataSchema = new mongoose.Schema({
-    averageViewers: {
-        type: Number,
-        required: true,
-    },
     type: {
         type: String,
         enum: ['gameName', 'title', 'language'],
-        required: true,
-    },
-    size: {
-        type: String,
-        enum: ['tinyStream', 'smallStream', 'mediumStream', 'bigStream', 'biggestStream'],
         required: true,
     },
     voc: {

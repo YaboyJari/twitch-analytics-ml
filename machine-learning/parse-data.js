@@ -1,5 +1,3 @@
-const size = require("../enums/size");
-
 const parseToUserSchema = (twitchInfo) => {
     return {
         'twitchId': twitchInfo.user_id,
@@ -19,17 +17,30 @@ const parseToStreamSchema = (twitchInfo) => {
     }
 };
 
-const parseToVocSchema = (averageViewers, key, voc, size) => {
+const parseToVocSchema = (key, voc) => {
     return {
-        'averageViewers': averageViewers,
         'type': key,
-        'size': size,
         'voc': voc,
     };
 }
+
+const parseLabelToCategory = (label) => {
+    if (label > 0 && label <= 10) {
+        return 0;
+    } else if (label > 10 && label <= 20) {
+        return 1;
+    } else if (label > 20 && label <= 30) {
+        return 2;
+    } else if (label > 30 && label <= 40) {
+        return 3;
+    } else {
+        return 4;
+    };
+};
 
 module.exports = {
     parseToStreamSchema,
     parseToUserSchema,
     parseToVocSchema,
+    parseLabelToCategory,
 };
