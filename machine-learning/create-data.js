@@ -63,10 +63,10 @@ const insertUserAndStream = async (twitchInfo) => {
             console.log('Stream found, adding view count...');
             stream.viewerCount.push(twitchInfo.viewer_count);
             await stream.save();
-        }
+        };
     } catch (err) {
         console.log(err);
-    }
+    };
 };
 
 module.exports = {

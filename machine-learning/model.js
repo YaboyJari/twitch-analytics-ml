@@ -68,7 +68,6 @@ exports.runTestData = async () => {
         batchSize: batchSize,
     });
     const predictionData = castTensorToArray(predictions);
-    console.log(streamFixture);
     console.log(getPercentArray(predictionData, viewerArray));
 }
 
