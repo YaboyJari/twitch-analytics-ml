@@ -45,7 +45,7 @@ const insertUserAndStream = async (twitchInfo) => {
             const mappedUserData = parseToUserSchema(twitchInfo);
             user = new User(mappedUserData);
             await user.save();
-        }
+        };
         stream = await Stream.findOne({
             'streamerId': twitchInfo.user_id,
             'title': twitchInfo.title,

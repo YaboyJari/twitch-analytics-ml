@@ -31,7 +31,6 @@ const parseToStreamSchema = (twitchInfo) => {
         'viewerCount': [twitchInfo.viewer_count],
         'language': twitchInfo.language,
         'startedAt': twitchInfo.started_at,
-        'followerCount': twitchInfo.followerCount,
     }
 };
 
@@ -51,7 +50,6 @@ const mapStreamData = (stream) => {
         'startingHour': Number((stream.startedAt.getHours() / 24).toFixed(2)),
         'startingMinute': Number((stream.startedAt.getMinutes() / 60).toFixed(2)),
         'day': Number((stream.startedAt.getDay() / 7).toFixed(2)),
-        'followerCount': stream.followerCount,
     };
 };
 

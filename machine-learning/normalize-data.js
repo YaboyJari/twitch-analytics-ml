@@ -68,8 +68,7 @@ const normalizeData = async (data) => {
     const startingHourTensor = getAllItemsAndCreateTensor(data, 'startingHour');
     const startingMinuteTensor = getAllItemsAndCreateTensor(data, 'startingMinute');
     const startingDayTensor = getAllItemsAndCreateTensor(data, 'day');
-    const followerTensor = getAllItemsAndCreateTensor(data, 'followerCount');
-    const tensorList = tf.concat([gameWordTensor, titleTensor, languageTensor, startingHourTensor, startingMinuteTensor, startingDayTensor, followerTensor], 1);
+    const tensorList = tf.concat([gameWordTensor, titleTensor, languageTensor, startingHourTensor, startingMinuteTensor, startingDayTensor], 1);
     return splitIntoFeaturesAndLabels(data, tensorList);
 };
 
@@ -86,27 +85,7 @@ const filterOutliers = (streams) => {
     });
 };
 
-const normalize = (value, min, max) => {
-    if (min === undefined || max === undefined) {
-        return value;
-    }
-    return (value - min) / (max - min);
-};
-
-const normalizeFollowerCount = (streams) => {
-    streamFollowers = streams.map(stream => {
-        return stream.followerCount;
-    });
-    const min = Math.min.apply(null, streamFollowers);
-    const max = Math.max.apply(null, streamFollowers);
-    return streams.map(stream => {
-        stream.followerCount = normalize(stream.followerCount, min, max);
-        return stream;
-    });
-};
-
 const filterUsers = (streams) => {
-    streams = normalizeFollowerCount(streams);
     streams = streams.map(mapStreamData);
     streams.sort((a, b) => {
         return a.averageViewerCount - b.averageViewerCount;

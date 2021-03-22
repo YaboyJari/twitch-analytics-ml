@@ -8,7 +8,6 @@ const userDataSchema = new mongoose.Schema({
   gameName: { type: String, required: true },
   title: { type: String, required: true },
   viewerCount: { type: [Number], required: true },
-  followerCount: { type: Number, required: true },
   language: { type: String, required: true },
   startedAt: { type: Date, required: true },
 });
